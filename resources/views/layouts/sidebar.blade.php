@@ -239,13 +239,35 @@
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> PRACTICAS<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">Flot Charts</a>
+                                    <a href="{{ url('/hola/rutas')}}">Practica 1</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Morris.js Charts</a>
+                                    <a href="{{ url('/saludo/dia')}}">Practica 2</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('practica3')}}">Practica 3</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('practica4')}}">Practica 4</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('practica5')}}">Practica 5</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('practica6',['nombre'=>'Ana','edad'=>45]) }}">Practica 6</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('practica7')}}">Practica 7</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('practica8',['nombre'=>'Ana','edad'=>45]) }}">Practica 8</a>
+
+                                </li>
+                                <li>
+                                    <a href="{{ route('practica9')}}">Practica 9</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

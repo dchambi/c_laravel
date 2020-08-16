@@ -10,16 +10,20 @@ class PruebaController extends Controller
        return 'hola desde prueba controller.php';
     }
     public function parametrosAction($nombre,$edad){
-        $out='Nombre: '.$nombre. '</br>';
+      /*  $out='Nombre: '.$nombre.'</br>';
         $out='Edad: '.$edad;
         return $out;
+*/
+        $out='Nombre: '.$nombre.'</br>';
+    	$out.='Edad : '.$edad;
+    	return $out;
     }
     public function vistaAction(){
         return view('prueba.saludo_view');
     }
     public function datosAction($nombre,$edad){
         //ENVIAR DATOS 1
-        /*return view('prueba.datos_view')
+      /*  return view('prueba.datos_view')
         ->with('nombre',$nombre)
         ->with('edad',$edad);
         */
@@ -27,9 +31,9 @@ class PruebaController extends Controller
         $data['nombre']=$nombre;
         $data['edad']=$edad;
         return view ('prueba.datos_view',$data);
-
+/*
         //ENVIAR DATOS 3
-    /*    $data=compact ('nombre','edad');
+        $data=compact ('nombre','edad');
         return view ('prueba.datos_view',$data);
 */
    }
