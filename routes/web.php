@@ -56,4 +56,22 @@ Route::group(['prefix'=>'admin'],function(){
     
     //Modulo de usuarios (adicionar, editar, eliminar)
     Route::resource('user','admin\UserController');
+    Route::get('user/{id}/destroy','admin\UserController@destroy')->name('user.destroy');
+    
+    //Modulo de genros (adicionar, editar, eliminar)
+    Route::resource('genero','admin\GeneroController');
+    Route::get('genero/{id}/destroy','admin\GeneroController@destroy')->name('genero.destroy');
+    
+    //Modulo de director (adicionar, editar, eliminar)
+    Route::resource('director','admin\DirectorController');
+    Route::get('director/{id}/destroy','admin\DirectorController@destroy')->name('director.destroy');
+    
+    //Modulo de imagen (adicionar, editar, eliminar)
+    Route::resource('imagen','admin\ImagenController');
+    Route::get('imagen/{id}/destroy','admin\ImagenController@destroy')->name('imagen.destroy');
+    
+    //Modulo de peliculas (adicionar, editar, eliminar)
+    Route::resource('pelicula','admin\PeliculaController');
+    Route::get('pelicula/{id}/destroy','admin\PeliculaController@destroy')->name('pelicula.destroy');
+    
 });

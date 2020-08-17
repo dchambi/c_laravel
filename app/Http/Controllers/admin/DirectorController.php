@@ -4,30 +4,26 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-//Importar clases del modelo
-use App\User;
-
-class UserController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+use App\Director;
+class DirectorController extends Controller
+{/**
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function index()
     {
         // Listado de registros
-        //$users = User::all();                           //obtener todos los registros
-        //$users = User::Orderby('id','DESC')->get();     //obtener todos los registros ordenados
-        //dd($users);
-        $users = User::Orderby('id','DESC')->paginate(10);     //obtener todos los registros ordenados y paginados de 5
+        //$directores = Director::all();                           //obtener todos los registros
+        //$directores = Director::Orderby('id','DESC')->get();     //obtener todos los registros ordenados
+        //dd($directores);
+        $directores = Director::Orderby('id','DESC')->paginate(5);     //obtener todos los registros ordenados y paginados de 5
         // Enviar Listado de registros a una vista
-        $data['users']=$users;
-        return view('admin.user.index', $data);
-
+        $data['directores']=$directores;
+        return view('admin.director.index', $data);
+ 
     }
-
+ 
     /**
      * Show the form for creating a new resource.
      *
@@ -35,9 +31,9 @@ class UserController extends Controller
      */
     public function create()
     {  // Renderizar n formulario para nuevo registro
-        return view('admin.user.create');
+        return view('admin.director.create');
     }
-
+ 
     /**
      * Store a newly created resource in storage.
      *
@@ -47,20 +43,22 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // 1. Obtener todos los datos del formulario
-        $user =new User($request->all());   //Obtiene todos los datos
-        //dd($user);  //var_dump($user);
-        //dd($user->name);  //solo muestra nombre;
+        $director =new Director($request->all());   //Obtiene todos los datos
+        //dd($director);  //var_dump($director);
+        //dd($director->name);  //solo muestra nombre;
         //2. Cifrar password
-        $user->password=bcrypt($user->password);
+        //$director->password=bcrypt($director->password);
+        $director->nombre = $request->nombre;
+       // $director->director = $request->director;
         //3. Guardar en la base de datos
-        $user->save();
+        $director->save();
         //4. Mostrar mensaje
-        //return 'Usuario registrado correctamente';
-        flash('Usuario registrado correctamente')->success();
+        //return 'Director registrado correctamente';
+        flash('Director registrado correctamente')->success();
         //5. Redireccionamos a listar usuarios
-        return redirect()->route('user.index');
+        return redirect()->route('director.index');
     }
-
+ 
     /**
      * Display the specified resource.
      *
@@ -70,9 +68,9 @@ class UserController extends Controller
     public function show($id)
     {
         // Mostrar informacion detallada
-
+ 
     }
-
+ 
     /**
      * Show the form for editing the specified resource.
      *
@@ -82,14 +80,14 @@ class UserController extends Controller
     public function edit($id)
     {
          // Renderizar formulario para editar
-     $user = User::find($id);
-     // dd($user);
-     $data['user'] = $user;
-     return view('admin.user.edit', $data);
+     $director = Director::find($id);
+     // dd($director);
+     $data['director'] = $director;
+     return view('admin.director.edit', $data);
     }
-
+ 
     
-
+ 
     /**
      * Update the specified resource in storage.
      *
@@ -102,19 +100,19 @@ class UserController extends Controller
         // Registrar cambios en la base de datos
         //dd($request-all());
         // 1. Buscar Registro a modificar
-        $user=User::find($id);
+        $director=Director::find($id);
         // 2. Editar Valores
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->type = $request->type;
+        //$director->fill($request->all());
+        $director->nombre = $request->nombre;
+        //$director->director = $request->director;
         // 3. Guardar Cambios
-        $user->save();
+        $director->save();
         // 4. Preparar mensaje
-        flash('Usuario editado correctamente')->success();
+        flash('Director editado correctamente')->success();
         // 5. Redireccionar
-        return redirect()->route('user.index');
+        return redirect()->route('director.index');
     }
-
+ 
     /**
      * Remove the specified resource from storage.
      *
@@ -125,18 +123,19 @@ class UserController extends Controller
     {
         //Eliminar un registro
         // 1 Buscar Registro a eliminar
-        $user=User::find($id);
+        $director=Director::find($id);
         // 2 Eliminar registro
-        if($user){
-        $user->delete();
+        if($director){
+        $director->delete();
         // 3. preparar mensaje
-        flash ('Se ha eliminado '.$user->name.' correctamente')->success();
+        flash ('Se ha eliminado '.$director->name.' correctamente')->success();
         }
         else{
         // 3. preparar mensaje de error
         flash ('No existe el id '.$id.'.')->error();
+        
         }
         // 4. Redireccionar 
-        return redirect()->route('user.index');
+        return redirect()->route('director.index');
     }
 }

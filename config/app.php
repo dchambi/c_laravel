@@ -168,8 +168,10 @@ return [
          * Package Service Providers...
          */
         Collective\Html\HtmlServiceProvider::class,
-        Collective \ Html \ HtmlServiceProvider :: class,
-        /*
+        Laracasts\Flash\FlashServiceProvider::class,
+
+        /* Collective \ Html \ HtmlServiceProvider :: class,
+       
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,

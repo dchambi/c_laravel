@@ -5,29 +5,26 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-//Importar clases del modelo
-use App\User;
-
-class UserController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+use App\Imagen;
+class ImagenController extends Controller
+{/**
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function index()
     {
         // Listado de registros
-        //$users = User::all();                           //obtener todos los registros
-        //$users = User::Orderby('id','DESC')->get();     //obtener todos los registros ordenados
-        //dd($users);
-        $users = User::Orderby('id','DESC')->paginate(10);     //obtener todos los registros ordenados y paginados de 5
+        //$imagenes = Imagen::all();                           //obtener todos los registros
+        //$imagenes = Imagen::Orderby('id','DESC')->get();     //obtener todos los registros ordenados
+        //dd($imagenes);
+        $imagenes = Imagen::Orderby('id','DESC')->paginate(5);     //obtener todos los registros ordenados y paginados de 5
         // Enviar Listado de registros a una vista
-        $data['users']=$users;
-        return view('admin.user.index', $data);
-
+        $data['imagenes']=$imagenes;
+        return view('admin.imagen.index', $data);
+ 
     }
-
+ 
     /**
      * Show the form for creating a new resource.
      *
@@ -35,9 +32,9 @@ class UserController extends Controller
      */
     public function create()
     {  // Renderizar n formulario para nuevo registro
-        return view('admin.user.create');
+        return view('admin.imagen.create');
     }
-
+ 
     /**
      * Store a newly created resource in storage.
      *
@@ -47,20 +44,23 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // 1. Obtener todos los datos del formulario
-        $user =new User($request->all());   //Obtiene todos los datos
-        //dd($user);  //var_dump($user);
-        //dd($user->name);  //solo muestra nombre;
+        $imagen =new Imagen($request->all());   //Obtiene todos los datos
+        //dd($imagen);  //var_dump($imagen);
+        //dd($imagen->name);  //solo muestra nombre;
         //2. Cifrar password
-        $user->password=bcrypt($user->password);
+        //$imagen->password=bcrypt($imagen->password);
+        $imagen->nombre = $request->nombre;
+        $imagen->pelicula_id = $request->pelicula_id;
+       // $imagen->imagen = $request->imagen;
         //3. Guardar en la base de datos
-        $user->save();
+        $imagen->save();
         //4. Mostrar mensaje
-        //return 'Usuario registrado correctamente';
-        flash('Usuario registrado correctamente')->success();
+        //return 'Imagen registrado correctamente';
+        flash('Imagen registrado correctamente')->success();
         //5. Redireccionamos a listar usuarios
-        return redirect()->route('user.index');
+        return redirect()->route('imagen.index');
     }
-
+ 
     /**
      * Display the specified resource.
      *
@@ -70,9 +70,9 @@ class UserController extends Controller
     public function show($id)
     {
         // Mostrar informacion detallada
-
+ 
     }
-
+ 
     /**
      * Show the form for editing the specified resource.
      *
@@ -82,14 +82,14 @@ class UserController extends Controller
     public function edit($id)
     {
          // Renderizar formulario para editar
-     $user = User::find($id);
-     // dd($user);
-     $data['user'] = $user;
-     return view('admin.user.edit', $data);
+     $imagen = Imagen::find($id);
+     // dd($imagen);
+     $data['imagen'] = $imagen;
+     return view('admin.imagen.edit', $data);
     }
-
+ 
     
-
+ 
     /**
      * Update the specified resource in storage.
      *
@@ -102,19 +102,19 @@ class UserController extends Controller
         // Registrar cambios en la base de datos
         //dd($request-all());
         // 1. Buscar Registro a modificar
-        $user=User::find($id);
+        $imagen=Imagen::find($id);
         // 2. Editar Valores
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->type = $request->type;
+        //$imagen->fill($request->all());
+        $imagen->nombre = $request->nombre;
+        $imagen->pelicula_id = $request->pelicula_id;
         // 3. Guardar Cambios
-        $user->save();
+        $imagen->save();
         // 4. Preparar mensaje
-        flash('Usuario editado correctamente')->success();
+        flash('Imagen editado correctamente')->success();
         // 5. Redireccionar
-        return redirect()->route('user.index');
+        return redirect()->route('imagen.index');
     }
-
+ 
     /**
      * Remove the specified resource from storage.
      *
@@ -125,18 +125,19 @@ class UserController extends Controller
     {
         //Eliminar un registro
         // 1 Buscar Registro a eliminar
-        $user=User::find($id);
+        $imagen=Imagen::find($id);
         // 2 Eliminar registro
-        if($user){
-        $user->delete();
+        if($imagen){
+        $imagen->delete();
         // 3. preparar mensaje
-        flash ('Se ha eliminado '.$user->name.' correctamente')->success();
+        flash ('Se ha eliminado '.$imagen->name.' correctamente')->success();
         }
         else{
         // 3. preparar mensaje de error
         flash ('No existe el id '.$id.'.')->error();
+        
         }
         // 4. Redireccionar 
-        return redirect()->route('user.index');
+        return redirect()->route('imagen.index');
     }
 }
